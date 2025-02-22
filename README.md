@@ -1,51 +1,61 @@
-# API Proyecto: Metrogram 📷
+# **API de Laboratorio Químico**
 
-## Usuarios
+Esta API provee datos básicos para un proyecto universitario de laboratorio químico. Sirve como **punto de partida** para cargar información inicial sobre reactivos, recetas (experimentos base) y experimentos realizados.
 
-Para realizar la consulta utilice el siguiente enlace [https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/main/users.json](https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/main/users.json) le devolverá una lista de json como el siguiente:
+---
 
-```json
-[
-  {
-    "id": "3270ad46-759f-4f76-ac94-2d69b8d776b5",
-    "firstName": "Guillermina",
-    "lastName": "Zelaya Fonseca",
-    "email": "Guillermina.ZelayaFonseca33@unimet.edu.ve",
-    "username": "Hernan2",
-    "type": "professor",
-    "department": "Energía y Automatización",
-    "following": [
-      "e5e3df20-a629-421c-b268-b649afdfbf2b",
-      "3352d862-b70c-47b5-94b3-1e6374eb7d78",
-      "c5db8fd9-995d-451c-be21-a015807fb52d",
-      "8201710c-0658-4852-8a1e-0779001058b0",
-      "7f32f77b-d0e3-45fa-9c60-be49bda2886e",
-      "20e7942e-d4d9-46c1-b58a-84e4f1e0c097",
-      "88a624ab-12e0-43c4-89c8-3d3806b11687",
-      "84942403-e162-4794-9cb0-8e1a2ea101cd",
-      "cd93e0ba-d2a0-4086-aec9-285a73e1eff4",
-      "6102538d-863d-4026-bf20-a3b45e638a84"
-    ]
-  }
-]
-```
+## **Contenido**
 
-## Posts
+- [**API de Laboratorio Químico**](#api-de-laboratorio-químico)
+  - [**Contenido**](#contenido)
+  - [**Estructura de Archivos JSON**](#estructura-de-archivos-json)
+  - [**Instalación y Uso**](#instalación-y-uso)
+  - [**Endpoints Disponibles**](#endpoints-disponibles)
 
-Para realizar la consulta utilice el siguiente enlace [https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/main/posts.json](https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/main/posts.json) le devolverá una lista de json como el siguiente:
+---
 
-```json
-[
-  {
-    "publisher": "f089737c-d86f-4e33-a29d-136383ecc9fa",
-    "type": "photo",
-    "caption": "yowza um amazing balls pish commit cholesterol face whoever underneath flatline for round parallel luxurious onto hm angina before poorly failing hastily plus gosh vapid so supposing sadly eek zowie oof superintend lightly bah slim onto rebuke duh where so prime after devoted innocently weepy",
-    "date": "2023-01-14T16:22:47.951Z",
-    "tags": ["although"],
-    "multimedia": {
-      "type": "photo",
-      "url": "https://picsum.photos/seed/ihsv4uw/640/480"
-    }
-  }
-]
-```
+## **Estructura de Archivos JSON**
+
+La API se basa en tres archivos principales:
+
+1. **`reactivos.json`**
+   - Contiene información de 50 reactivos con atributos como:
+     - `id`, `nombre`, `descripcion`, `costo`, `categoria`, `inventario_disponible`, `unidad_medida`, `fecha_caducidad`, `minimo_sugerido`
+     - Campo especial `conversiones_posibles` para convertir entre distintas unidades.
+2. **`recetas.json`**
+   - Almacena 30 “recetas base” o **plantillas de experimentos**, cada una con:
+     - `id`, `nombre`, `objetivo`, `reactivos_utilizados`, `procedimiento`, `valores_a_medir` (con fórmulas y rangos).
+3. **`experimentos.json`**
+   - Lista 30 **instancias de experimentos** realizados, con:
+     - `id`, `receta_id`, `personas_responsables`, `fecha`, `costo_asociado`, `resultado`.
+
+Cada archivo está diseñado para **carga y persistencia** de datos. Se puede usar como fuente inicial en el sistema o conectarse a él a través de endpoints.
+
+---
+
+## **Instalación y Uso**
+
+1. **Descarga** o **clona** este repositorio que contiene los archivos JSON.
+2. Opcionalmente, configura un servidor (por ejemplo, con Node.js, Python Flask, etc.) que exponga estos archivos como endpoints de lectura/escritura.
+3. Asegúrate de que las rutas a los archivos JSON sean correctas en tu aplicación.
+4. En tu proyecto principal (el sistema de laboratorio químico), implementa las **operaciones CRUD** (Crear, Leer, Actualizar, Borrar) consultando a esta API (o directamente a los archivos JSON si no se hace un servidor REST).
+
+---
+
+## **Endpoints Disponibles**
+
+> A continuación, usa este servidor principal `https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/refs/heads/main` que sirve los JSON.
+
+- **Reactivos**
+
+  - `GET /reactivos.json`
+    Retorna la lista completa de reactivos.
+
+- **Recetas**
+
+  - `GET /recetas.json`
+    Retorna la lista completa de recetas (experimentos base).
+
+- **Experimentos**
+  - `GET /experimentos.json`
+    Retorna la lista de experimentos realizados.
