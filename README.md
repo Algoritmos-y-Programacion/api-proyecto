@@ -1,6 +1,6 @@
 # API Proyecto: Buscaminas 💣
 
-Base path `https://github.com/Algoritmos-y-Programacion/api-proyecto/blob/main`
+Base path `https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/refs/heads/main`
 
 ## `GET /config.json`
 
