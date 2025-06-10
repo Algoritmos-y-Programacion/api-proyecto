@@ -1,61 +1,39 @@
-# **API de Laboratorio Químico**
+# API Proyecto: Buscaminas 💣
 
-Esta API provee datos básicos para un proyecto universitario de laboratorio químico. Sirve como **punto de partida** para cargar información inicial sobre reactivos, recetas (experimentos base) y experimentos realizados.
+Base path `https://github.com/Algoritmos-y-Programacion/api-proyecto/blob/main`
 
----
+## `GET /config.json`
 
-## **Contenido**
+Respuesta esperada:
 
-- [**API de Laboratorio Químico**](#api-de-laboratorio-químico)
-  - [**Contenido**](#contenido)
-  - [**Estructura de Archivos JSON**](#estructura-de-archivos-json)
-  - [**Instalación y Uso**](#instalación-y-uso)
-  - [**Endpoints Disponibles**](#endpoints-disponibles)
+```json
+{
+  "global": {
+    "board_size": [8, 8],
+    "quantity_of_mines": {
+      "easy": 0.1,
+      "medium": 0.3,
+      "hard": 0.6,
+      "impossible": 0.8
+    }
+  }
+}
+```
 
----
+Esto represeta las dimensiones del tablero, y el total de casillas dado, por ejemplo, `global.board_size` debera generar un tablero de 8x8 y un total de 64 casillas
 
-## **Estructura de Archivos JSON**
+La propiedad `global.quantity_of_mines` determina el porcentaje de minas en función de la dificultad que seleccione el jugar y el tamaño del tablera, para un 8x8 el juego en nivel _medium_ debera tener `8*8*0.6 = 38.4` lo que equivale a 38 minas en el tablero.
 
-La API se basa en tres archivos principales:
+## `GET /leaderboard.json`
 
-1. **`reactivos.json`**
-   - Contiene información de 50 reactivos con atributos como:
-     - `id`, `nombre`, `descripcion`, `costo`, `categoria`, `inventario_disponible`, `unidad_medida`, `fecha_caducidad`, `minimo_sugerido`
-     - Campo especial `conversiones_posibles` para convertir entre distintas unidades.
-2. **`recetas.json`**
-   - Almacena 30 “recetas base” o **plantillas de experimentos**, cada una con:
-     - `id`, `nombre`, `objetivo`, `reactivos_utilizados`, `procedimiento`, `valores_a_medir` (con fórmulas y rangos).
-3. **`experimentos.json`**
-   - Lista 30 **instancias de experimentos** realizados, con:
-     - `id`, `receta_id`, `personas_responsables`, `fecha`, `costo_asociado`, `resultado`.
+```json
+[
+  {
+    "first_name": "Jose",
+    "last_name": "Quevedo",
+    "time": 15.5
+  }
+]
+```
 
-Cada archivo está diseñado para **carga y persistencia** de datos. Se puede usar como fuente inicial en el sistema o conectarse a él a través de endpoints.
-
----
-
-## **Instalación y Uso**
-
-1. **Descarga** o **clona** este repositorio que contiene los archivos JSON.
-2. Opcionalmente, configura un servidor (por ejemplo, con Node.js, Python Flask, etc.) que exponga estos archivos como endpoints de lectura/escritura.
-3. Asegúrate de que las rutas a los archivos JSON sean correctas en tu aplicación.
-4. En tu proyecto principal (el sistema de laboratorio químico), implementa las **operaciones CRUD** (Crear, Leer, Actualizar, Borrar) consultando a esta API (o directamente a los archivos JSON si no se hace un servidor REST).
-
----
-
-## **Endpoints Disponibles**
-
-> A continuación, usa este servidor principal `https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/refs/heads/main` que sirve los JSON.
-
-- **Reactivos**
-
-  - `GET /reactivos.json`
-    Retorna la lista completa de reactivos.
-
-- **Recetas**
-
-  - `GET /recetas.json`
-    Retorna la lista completa de recetas (experimentos base).
-
-- **Experimentos**
-  - `GET /experimentos.json`
-    Retorna la lista de experimentos realizados.
+La respuesta de este endpoint es una lista con el leaderboard inicial del juego, el tiempo `response[i].time` esta dado en minutos, por lo que `15.5` equivale a 15min y 30s
